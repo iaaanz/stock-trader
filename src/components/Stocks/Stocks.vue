@@ -4,19 +4,19 @@
       <Stock v-for="stock in stocks" :key="stock.id"/>
     </div>
   </div>
-</template> 
+</template>
 
 <script>
-import Stock from './Stock.vue'
+import Stock from './Stock';
 
 export default {
   components: { Stock },
   data() {
     return {
-      stocks: 9
-    }
-  }
-}
+      stocks: 9,
+    };
+  },
+};
 </script>
 
 <style>

@@ -1,5 +1,5 @@
 <template>
-	<v-app>
+  <v-app>
     <Header />
     <v-content>
       <div class="container-fluid">
@@ -10,15 +10,12 @@
 </template>
 
 <script>
-import Header from './components/Header.vue'
+import Header from './components/Header';
 
 export default {
   components: { Header },
-
-}
+};
 </script>
 
 <style>
-
 </style>
-

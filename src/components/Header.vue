@@ -22,6 +22,7 @@
           <v-list-item>Carregar</v-list-item>
         </v-list>
       </v-menu>
+      <v-btn text>Saldo: R$ 1000,00</v-btn>
     </v-toolbar-items>
   </v-app-bar>
 </template>

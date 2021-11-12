@@ -1,10 +1,25 @@
 <template>
-  <h1>portfolio</h1>
+  <div class="portfolio">
+    <div class="row">
+      <Stocks v-for="stock in myStocks" :key="stock.id" :stock="stock"/>
+    </div>
+  </div>
 </template>
 
 <script>
-export default {
+import Stocks from './Stocks';
 
+export default {
+  components: { Stocks },
+  data() {
+    return {
+    };
+  },
+  computed: {
+    myStocks() {
+      return this.$store.getters.myStocks;
+    },
+  },
 };
 </script>
 

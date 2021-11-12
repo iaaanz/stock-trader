@@ -1,7 +1,7 @@
 <template>
   <div class="stocks">
     <div class="row">
-      <Stock v-for="stock in stocks" :key="stock.id"/>
+      <Stock v-for="stock in stocks" :key="stock.id" :stock="stock"/>
     </div>
   </div>
 </template>
@@ -13,8 +13,15 @@ export default {
   components: { Stock },
   data() {
     return {
-      stocks: 9,
     };
+  },
+  computed: {
+    stocks() {
+      return this.$store.getters.stocksToBuy;
+    },
+  },
+  methods: {
+
   },
 };
 </script>

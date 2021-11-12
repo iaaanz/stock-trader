@@ -1,46 +1,61 @@
 /* eslint-disable no-console */
 import axios from 'axios';
+// import portfolio from './portfolio';
 
 export default {
   state: {
     stocks: [
       {
-        id: 1,
+        id: 0,
         name: 'Google',
         price: 100.00,
       },
       {
-        id: 2,
+        id: 1,
         name: 'Facebook',
         price: 124.00,
       },
       {
-        id: 3,
+        id: 2,
         name: 'BMW',
         price: 176.00,
       },
       {
-        id: 4,
+        id: 3,
         name: 'Azure',
         price: 87.00,
       },
       {
-        id: 5,
+        id: 4,
         name: 'Instagram',
         price: 36.00,
       },
       {
-        id: 6,
+        id: 5,
         name: 'Honda',
         price: 219.00,
       },
     ],
   },
   actions: {
-    buyStock({ commit }, purchasedStock) {
-      const { name, ...purchase } = purchasedStock;
+    buyStock({ commit, state }, stock) {
+      const { name, ...purchase } = stock;
+      const { qtd, totalPrice, stockId } = purchase;
 
-      return axios.patch(`/my_stocks/${purchasedStock.name}.json`, purchase)
+      // TODO: parei aqui
+      axios.get(`/my_stocks/${name}.json`)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch();
+
+      const purchasedStock = {
+        ...purchase,
+        qtd,
+        totalPrice: state.myStocks[stockId].totalPrice + totalPrice,
+      };
+
+      return axios.patch(`/my_stocks/${name}.json`, purchasedStock)
         .then((res) => {
           console.log(res);
           commit('setSaldo', purchase);

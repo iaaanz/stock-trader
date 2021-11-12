@@ -1,7 +1,9 @@
 <template >
 <div class="col-md-4">
     <v-card elevation="2" class="m-3">
-      <v-card-title class="primary">{{stock.name}} (R$: {{stock.price}})</v-card-title>
+      <v-card-title class="primary">
+        {{stock.name}}
+        (R$: {{stock.price}})</v-card-title>
       <div class="row m-3">
         <v-text-field
           v-model="qtd"
@@ -23,16 +25,18 @@ export default {
     return {
       qtd: {
         type: Number,
-        default: '',
+        default: null,
       },
     };
   },
   props: {
     stock: Object,
   },
+  mounted() {
+  },
   methods: {
     buyStock() {
-      const purchase = {
+      const purchasedStock = {
         stockId: this.stock.id,
         name: this.stock.name,
         price: this.stock.price,
@@ -41,7 +45,7 @@ export default {
       };
 
       this.qtd = null;
-      return this.$store.dispatch('buyStock', purchase);
+      return this.$store.dispatch('buyStock', purchasedStock);
     },
   },
 };

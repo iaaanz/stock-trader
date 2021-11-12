@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import axios from 'axios';
 
 export default {
@@ -16,7 +17,7 @@ export default {
       {
         id: 3,
         name: 'BMW',
-        price: 247.00,
+        price: 176.00,
       },
       {
         id: 4,
@@ -26,33 +27,42 @@ export default {
       {
         id: 5,
         name: 'Instagram',
-        price: 98.00,
+        price: 36.00,
       },
       {
         id: 6,
         name: 'Honda',
-        price: 98.00,
+        price: 219.00,
       },
     ],
   },
   actions: {
-    buyStock({ commit }, purchase) {
-      return axios.post('/myStocks.json', purchase)
+    buyStock({ commit }, purchasedStock) {
+      const { name, ...purchase } = purchasedStock;
+
+      return axios.patch(`/my_stocks/${purchasedStock.name}.json`, purchase)
         .then((res) => {
           console.log(res);
-          commit('setStock');
+          commit('setSaldo', purchase);
         })
         .catch((err) => {
           console.log(err);
         });
     },
     endDay({ commit, state }) {
+      const oldStocks = state.stocks;
+      const newStocks = oldStocks.map((stock, i) => {
+        const newPrice = Math.round((stock.price + (stock.price / 100) * Math.floor(Math.random() * (5 - 1 + 1)) + 1) * 100) / 100;
 
+        return { ...oldStocks[i], price: newPrice };
+      });
+
+      commit('updateStockPrices', newStocks);
     },
   },
   mutations: {
-    setStock(state, stock) {
-      state.stocks = stock;
+    updateStockPrices(state, newStocks) {
+      state.stocks = newStocks;
     },
   },
   getters: {
